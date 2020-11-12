@@ -139,3 +139,4 @@ p <- ggplot(data_long) +
   save_animation(a, "floviz.gif"))
 
 anim_save("floviz.gif", animation = last_animation())
+
