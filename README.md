@@ -3,9 +3,5 @@
 Repository for TidyTuesday and other data viz code 
 https://github.com/rfordatascience/tidytuesday/blob/master/README.md
 
-
-TidyTuesday - Spotify Data - https://twitter.com/sianbladon/status/1220097859313422336
-
-TidyTuesday - Coffee Data - https://twitter.com/sianbladon/status/1281182261254258688
-
-YSS FloViz challenge - https://twitter.com/sianbladon/status/1259533254782259203
+[Tidy Tuesday 2020 Week 43 - US Beer Awards (https://github.com/sianbladon/Data-Viz/tree/master/Tidy-Tuesday-2020-Week-43)
+![alt text](https://github.com/sianbladon/Data-Viz/blob/master/Tidy-Tuesday-2020-Week-43/beer_awards.png)
