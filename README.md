@@ -1,10 +1,10 @@
 # DataViz
 
 
-Repository for TidyTuesday and other data viz code 
+Repository for [TidyTuesday](https://github.com/rfordatascience/tidytuesday/blob/master/README.md) and other data viz code 
 
 
-https://github.com/rfordatascience/tidytuesday/blob/master/README.md
+
 
 
 
