@@ -1,0 +1,117 @@
+---
+title: "TidyTuesday 21st October 2020"
+author: "Sian Bladon"
+date: "20/10/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r load packages}
+library(tidyverse)
+library(waffle)
+```
+
+
+
+```{r load data}
+beer <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-10-20/beer_awards.csv')
+```
+
+Find top 10 states by number of medals won 
+```{r explore/clean data and find top_10 states}
+
+beer$state <- as.factor(beer$state)
+
+beer <- beer %>%
+  mutate(state = recode(state, wa = "WA", Ak = "AK")) %>%
+  mutate(state = droplevels(state))
+
+by_state <- beer %>%
+  group_by(state) %>%
+  dplyr::count(state) %>%
+  arrange(desc(n)) %>%
+  ungroup()
+
+top_10 <- by_state %>%
+  slice_head(n = 10) %>%
+  mutate(state = droplevels(state))
+
+top_10_states <- top_10$state
+
+```
+
+Create variables for plotting order and labels - wanted it to plot the states by order of medals rather than alphebetically, and wanted labels to be full state names not abbrevs. Also I wanted the waffle squares to plot in bronze, silver and gold order. 
+
+```{r create vars}
+
+by_state_totals_2 <- beer %>%
+  dplyr::count(state, medal, name = "medals_per_state") %>%
+  arrange(desc(medals_per_state)) %>%
+  filter(state %in% top_10_states) %>%
+  mutate(state_name = dplyr::case_when(state == "CA" ~ "California",
+                                       state == "CO" ~ "Colorado",
+                                       state == "IL" ~ "Illinois",
+                                       state == "MO" ~ "Missouri",
+                                       state == "OR" ~ "Oregon",
+                                       state == "PA" ~ "Pennsylvania",
+                                       state == "TX" ~ "Texas",
+                                       state == "VA" ~ "Virginia",
+                                       state == "WA" ~ "Washington",
+                                       state == "WI" ~ "Wisconsin"), 
+        medals_order = dplyr::case_when(medal == "Bronze" ~ "A", 
+                                        medal == "Silver" ~ "B", 
+                                        medal == "Gold" ~ "C"),
+        plot_order = dplyr::case_when(state == "CA" ~ 1,
+                                      state == "CO" ~ 2,
+                                      state == "IL" ~ 8,
+                                      state == "MO" ~ 10,
+                                      state == "OR" ~ 3,
+                                      state == "PA" ~ 6,
+                                      state == "TX" ~ 4,
+                                      state == "VA" ~ 9,
+                                      state == "WA" ~ 7,
+                                      state == "WI" ~ 5)) %>%
+  dplyr::arrange(plot_order, medals_order)
+```
+
+Create labels for facets 
+``` {r create lables for facets}
+lbls <- c("California", "Colorado", "Oregon", "Texas", "Wisconsin", "Pennsylvania", "Washington", "Illinois", "Virginia", "Missouri")
+names(lbls) <- seq(1:10)
+```
+
+Create plot
+```{r plot}
+ggplot(by_state_totals_2, aes(values = medals_per_state, x = medals_per_state, fill = medals_order)) +
+  facet_wrap(~ plot_order, ncol = 1, strip.position = 'left', 
+             labeller = labeller(plot_order = lbls)) +
+  geom_waffle(n_rows = 5, size = .2, colour = "white") + 
+  scale_y_discrete() + 
+  scale_x_continuous(labels = function(x) x * 5, # make this multiplyer the same as n_rows
+                     expand = c(0,0)) +
+  labs(title = "Award Winning Beer Producing States", 
+       subtitle = "Top 10 US States with the most bronze, silver and gold medals \n won at the Great American Beer Festival",
+       x = "", 
+       y = "") +
+  scale_fill_manual(name = "Medal Colour", 
+                    values = c("#AD6B17", "gray72", "#CCAE42"),
+                    #values = c("", "#BAC4C2", "#CCAE42"), 
+                    labels = c("Bronze", "Silver", "Gold")) +
+  theme_minimal(base_family = "mono") +
+  theme(
+    strip.text.y.left = element_text(angle = 0, colour = "white", size = 14, face = "bold"),
+    axis.text.y = element_blank(),
+    axis.text.x = element_text(size = 12, face = "bold"),
+    plot.title = element_text(face = "bold", size = 20, vjust = 8, colour = "white"),
+    plot.subtitle = element_text(face = "bold", size = 14, vjust =4, colour = "white"),
+    plot.background = element_rect(fill ="#7B8BA5" , colour = NA),
+    panel.background = element_rect(fill ="#7B8BA5" , colour = NA),
+    legend.position = "bottom", 
+    legend.title = element_text(colour = "white"),
+    legend.text = element_text(colour = "white"),
+    plot.margin = unit(c(2,1.5,0.5,1), "cm"))
+```
