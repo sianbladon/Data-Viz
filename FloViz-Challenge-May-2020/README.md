@@ -12,4 +12,4 @@ https://statsyss.wordpress.com/2020/05/02/florence-nightingale-dataviz-competiti
 And all of the entries seen here:
 https://statsyss.wordpress.com/2020/05/11/floviz-challenge-entries/
 
-![alt text](https://github.com/sianbladon/Data-Viz/blob/master/FloViz-Challenge-may-2020/floviz.gif.png)
+![alt text](https://github.com/sianbladon/Data-Viz/blob/master/FloViz-Challenge-may-2020/floviz.gif)
