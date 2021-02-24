@@ -14,14 +14,14 @@ Repository for [TidyTuesday](https://github.com/rfordatascience/tidytuesday/blob
 
 ---
 
-[Tidy Tuesday 2021 Week 9 - US Earnings by Gender and Race](https://github.com/sianbladon/Data-Viz/blob/master/Tidy-Tuesday-2021-Week-9/README.md)
+[Tidy Tuesday 2021 Week 9 - US Earnings by Gender and Race](https://github.com/sianbladon/Data-Viz/tree/master/Tidy-Tuesday-2021-Week-9)
 
 
 ![alt text](https://github.com/sianbladon/Data-Viz/blob/master/Tidy-Tuesday-2021-Week-9/us_earnings.png)
 
 ---
 
-[Tidy Tuesday 2020 Week 46 - Landline and Mobile Phone Subscriptions](https://github.com/sianbladon/Data-Viz/blob/master/Tidy-Tuesday-2020-Week-46/README.md)
+[Tidy Tuesday 2020 Week 46 - Landline and Mobile Phone Subscriptions](https://github.com/sianbladon/Data-Viz/blob/master/Tidy-Tuesday-2020-Week-46)
 
 
 ![alt text](https://github.com/sianbladon/Data-Viz/blob/master/Tidy-Tuesday-2020-Week-46/phone_subs.png)
