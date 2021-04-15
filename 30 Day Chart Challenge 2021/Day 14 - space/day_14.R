@@ -2,6 +2,8 @@
 library(tidyverse)
 library(showtext)
 
+# data from here https://nssdc.gsfc.nasa.gov/planetary/factsheet/
+
 planets <- read.csv("planets.csv") 
 
 planets$diameter._km <- as.numeric(planets$diameter._km)
