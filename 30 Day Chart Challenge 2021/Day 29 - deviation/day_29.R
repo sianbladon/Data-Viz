@@ -2,6 +2,7 @@ library(tidyverse)
 library(showtext)
 library(patchwork)
 
+#data from https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/healthandwellbeing/datasets/healthindexengland
 
 hi <- read.csv("hi.csv")
 
