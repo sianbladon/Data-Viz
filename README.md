@@ -9,6 +9,8 @@ Repository for [TidyTuesday](https://github.com/rfordatascience/tidytuesday/blob
 
 ![alt text](https://github.com/sianbladon/Data-Viz/blob/master/30%20Day%20Chart%20Challenge%202021/Ex5YyWLXAAMls--.jpeg)
 
+![alt text](https://github.com/sianbladon/Data-Viz/blob/master/30%20Day%20Chart%20Challenge%202021/all.png)
+
 ---
 
 
