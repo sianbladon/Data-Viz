@@ -3,6 +3,10 @@
 
 Repository for [TidyTuesday](https://github.com/rfordatascience/tidytuesday/blob/master/README.md) and other data viz code 
 
+--- [30 Day Chart Challenge 2021](https://github.com/sianbladon/Data-Viz/tree/master/30%20Day%20Chart%20Challenge%202021)
+
+![alt text](https://github.com/sianbladon/Data-Viz/blob/master/30%20Day%20Chart%20Challenge%202021/Ex5YyWLXAAMls--.jpeg)
+
 ---
 
 
