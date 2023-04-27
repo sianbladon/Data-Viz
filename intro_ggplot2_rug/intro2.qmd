@@ -1,0 +1,318 @@
+---
+title: "Introduction to ggplot2"
+author: "Sian Bladon"
+format: 
+  revealjs:
+    output-file: slide.html
+editor: visual
+---
+
+## What is ggplot2?
+
+ggplot2 is one of the *tidyverse* packages
+
+The 'gg' stands for Grammar of Graphics, an approach to building plots using a combination of layers
+
+![](/Users/sianbladon/Documents/Data Viz/layers2.png){.absolute bottom=10 right=10 width="350" height="400"}
+[Image from here](https://englelab.gatech.edu/useRguide/introduction-to-ggplot2.html)
+
+## How to create a plot with ggplot2
+
+First, load your data.
+<br>
+We will use the penguins data set from the *palmerpenguins* package by Alison Horst
+<br>
+
+```{r}
+#| echo: true
+library (tidyverse)
+library(palmerpenguins)
+data(package = 'palmerpenguins')
+```
+
+<br>
+
+If you have not already installed either of these packacges then you will need to 
+`install.packages("palmerpenguins')` first
+
+## How to create a plot with ggplot2
+
+
+```{r}
+#| echo: true
+
+ggplot(data = penguins) +
+  geom_point(mapping = aes(x = flipper_length_mm, y = body_mass_g))
+  
+```
+
+##  {#slide3-id data-menu-title="Slide 3 colour"}
+
+You can also map additional variables to aesthetics, including:
+
+
+-   colour
+<br>
+
+```{r}
+#| echo: true
+
+ggplot(data = penguins) +
+  geom_point(mapping = aes(x = flipper_length_mm, y = body_mass_g, 
+                           colour = species))
+```
+
+##  {#slide4-id data-menu-title="Slide 4 shape"}
+
+-   shape
+<br>
+
+```{r}
+#| echo: true
+
+ggplot(data = penguins) +
+  geom_point(mapping = aes(x = flipper_length_mm, y = body_mass_g, 
+                           colour = species, shape = species), size = 2)
+```
+
+##  {#slide5-id data-menu-title="Slide 5 alpha"}
+
+-   alpha (transparency)
+<br>
+```{r}
+#| echo: true
+
+ggplot(data = penguins) +
+  geom_point(mapping = aes(x = flipper_length_mm, y = body_mass_g, 
+                           colour = species, shape = species, alpha = species)
+             , size = 2)
+
+```
+
+## Geoms
+
+<br>
+
+There are many types of `geom`, here are a few examples:
+
+-   `geom_histogram`
+<br>
+
+```{r}
+#| echo: true
+
+ggplot(data = penguins) +
+  geom_histogram(mapping = aes(x = flipper_length_mm), binwidth = 2)
+
+```
+
+##  {#slide7-id data-menu-title="Slide 7 boxplot"}
+
+-   `geom_boxplot`
+<br>
+```{r}
+#| echo: true
+
+ggplot(data = penguins) +
+  geom_boxplot(mapping = 
+                 aes(x = flipper_length_mm, y = species, fill = species))
+```
+
+##  {#slide8-id data-menu-title="Slide 8 col"}
+
+-   `geom_bar`
+<br>
+```{r}
+#| echo: true
+
+ggplot(data = penguins) +
+  geom_bar(mapping = 
+             aes(x = species, colour = species, fill = species))
+```
+
+##  {#slide9-id data-menu-title="Slide 9 layer"}
+
+You can also layer different `geoms`
+<br>
+```{r}
+#| echo: true
+#| output-location: slide
+
+ggplot(data = penguins) +
+  geom_point(mapping = aes(x = flipper_length_mm, y = bill_length_mm)) +
+  geom_smooth(mapping = aes(x = flipper_length_mm, y = bill_length_mm), 
+              method = "lm", se = FALSE)
+```
+
+## Customising plots
+
+There are many ways to customise plots.
+
+- changing colour
+<br>
+```{r}
+#| echo: true
+#| output-location: slide
+ggplot(data = penguins) +
+  geom_point(mapping = aes(x = flipper_length_mm, y = bill_length_mm), 
+             colour = "darkblue") +
+  geom_smooth(mapping = aes(x = flipper_length_mm, y = bill_length_mm), 
+              method = "lm", se = FALSE, colour = "darkorange")
+```
+##  {#slide10-id data-menu-title="Slide 10 scale"}
+
+- `scale`
+<br>
+```{r}
+#| echo: true
+#| output-location: slide
+
+ggplot(data = penguins) +
+  geom_point(mapping = aes(x = flipper_length_mm, y = bill_length_mm, 
+                           colour = species)) +
+  scale_x_continuous(name = "Flipper Length (mm)", 
+                     breaks = c(170, 190, 210, 230)) +
+  scale_y_continuous(name = "Bill Length (mm)") +
+  scale_color_manual(name = "Penguin Species", 
+                     values = c("mediumpurple3", "darkcyan", "darkorange")) 
+```
+
+##  {#slide11-id data-menu-title="SLide 11 title"}
+
+- add a title and subtitle
+<br>
+```{r}
+#| echo: true
+#| output-location: slide
+
+ggplot(data = penguins) +
+  geom_point(mapping = aes(x = flipper_length_mm, y = bill_length_mm, 
+                           colour = species)) +
+  scale_x_continuous(name = "Flipper Length (mm)", 
+                     breaks = c(170, 190, 210, 230)) +
+  scale_y_continuous(name = "Bill Length (mm)") +
+  scale_color_manual(name = "Penguin Species", values = 
+                       c("mediumpurple3", "darkcyan", "darkorange")) +
+  labs(title = "Relationship between flipper length and bill length in penguins", 
+       subtitle = "Data from 344 Antarctic penguins")
+```
+
+
+##  {#slide12-id data-menu-title="Slide 12 theme"}
+
+- change the theme - `theme_classic`
+<br>
+```{r}
+#| echo: true
+#| output-location: slide
+ggplot(data = penguins) +
+  geom_point(mapping = aes(x = flipper_length_mm, y = bill_length_mm, 
+                           colour = species)) +
+  scale_x_continuous(name = "Flipper Length (mm)", 
+                     breaks = c(170, 190, 210, 230)) +
+  scale_y_continuous(name = "Bill Length (mm)") +
+  scale_color_manual(name = "Penguin Species", 
+                     values = c("mediumpurple3", "darkcyan", "darkorange")) +
+  labs(title = "Relationship between flipper length and bill length in penguins", 
+       subtitle = "Data from 344 Antarctic penguins") +
+  theme_classic()
+```
+
+##  {#slide13-id data-menu-title="SLide 13 theme2"}
+
+- change the theme - `theme_dark`
+<br>
+```{r}
+
+#| code-fold: true
+#| code-summary: "Show the code"
+ggplot(data = penguins) +
+  geom_point(mapping = aes(x = flipper_length_mm, y = bill_length_mm, 
+                           colour = species)) +
+  scale_x_continuous(name = "Flipper Length (mm)", 
+                     breaks = c(170, 190, 210, 230)) +
+  scale_y_continuous(name = "Bill Length (mm)") +
+  scale_color_manual(name = "Penguin Species", 
+                     values = c("mediumpurple3", "darkcyan", "darkorange")) +
+  labs(title = "Relationship between flipper length and bill length in penguins", 
+       subtitle = "Data from 344 Antarctic penguins") +
+  theme_dark()
+```
+
+##  {#slide14-id data-menu-title="SLide 14 theme3"}
+
+- change the theme - `theme_minimal`
+<br>
+```{r}
+
+#| code-fold: true
+#| code-summary: "Show the code"
+ggplot(data = penguins) +
+  geom_point(mapping = aes(x = flipper_length_mm, y = bill_length_mm, 
+                           colour = species)) +
+  scale_x_continuous(name = "Flipper Length (mm)", 
+                     breaks = c(170, 190, 210, 230)) +
+  scale_y_continuous(name = "Bill Length (mm)") +
+  scale_color_manual(name = "Penguin Species", 
+                     values = c("mediumpurple3", "darkcyan", "darkorange")) +
+  labs(title = "Relationship between flipper length and bill length in penguins", 
+       subtitle = "Data from 344 Antarctic penguins") +
+  theme_minimal()
+```
+
+##  {#slide22-id data-menu-title="SLide 22 theme4"}
+
+You can also manually change each theme element
+
+<br>
+```{r}
+#| echo: true
+#| output-location: slide
+
+ggplot(data = penguins) +
+  geom_point(mapping = aes(x = flipper_length_mm, y = bill_length_mm, 
+                           colour = species)) +
+  scale_x_continuous(name = "Flipper Length (mm)", 
+                     breaks = c(170, 190, 210, 230)) +
+  scale_y_continuous(name = "Bill Length (mm)") +
+  scale_color_manual(name = "Penguin Species", 
+                     values = c("mediumpurple3", "darkcyan", "darkorange")) +
+  labs(title = "Relationship between flipper length and bill length in penguins", 
+       subtitle = "Data from 344 Antarctic penguins") +
+  theme(
+    axis.title.x = element_text(colour = "skyblue4", size = 14),
+    axis.title.y = element_text(colour = "indianred3", size = 10),
+    panel.grid.major = element_blank(),
+    panel.background = element_rect(fill = "lightsteelblue1"),
+    legend.position = "top"
+  )
+```
+
+## Use faceting to split your data into multiple plots
+
+```{r}
+
+#| echo: true
+#| output-location: slide
+
+ggplot(data = penguins) +
+  geom_point(mapping = aes(x = flipper_length_mm, y = bill_length_mm, 
+                           colour = species)) +
+  scale_x_continuous(name = "Flipper Length (mm)", 
+                     breaks = c(170, 190, 210, 230)) +
+  scale_y_continuous(name = "Bill Length (mm)") +
+  scale_color_manual(name = "Penguin Species", 
+                     values = c("mediumpurple3", "darkcyan", "darkorange")) +
+  labs(title = "Relationship between flipper length and bill length in penguins", 
+       subtitle = "Data from 344 Antarctic penguins") +
+  theme_minimal() +
+  facet_wrap(~ species)
+```
+
+## Useful resources
+<br>
+For a more detailed intro to ggplot2 with examples -  [R4DS Data Visualisation Chapter](https://r4ds.had.co.nz/data-visualisation.html)
+<br>
+Cheat sheet with examples of geoms - [ggplot2 cheat sheet](https://posit.co/resources/cheatsheets/?type=posit-cheatsheets&\_page=2/)
+<br>
+List of all the theme elements - [modify theme elements](https://ggplot2.tidyverse.org/reference/theme.html)
